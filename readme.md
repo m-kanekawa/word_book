@@ -1,7 +1,7 @@
 # Create Your Own Word Book
 
 ## What you can do with this App
-![register/other](readme/6.png)  
+![screenshot](readme/6.png)  
 
 1. Register word into your word book from your web site
 
@@ -19,7 +19,7 @@
   
 1. Show meaning of a word in your website from your word book  
 
-![vat.png](readme/1.png)
+![search](readme/1.png)
 
 
 ## Why I made this App
