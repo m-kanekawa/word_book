@@ -48,6 +48,7 @@ rt {
 
 /* wb_modal */
 #wb_modal {
+  font-size: 14px;
   position: fixed;
   top: 0;
   left: 0;
@@ -67,7 +68,7 @@ rt {
   width: 80%;
   max-width: 600px;
   max-height: 70%;
-  height: 650px;
+  height: 600px;
   margin: auto;
   overflow: none;
   background-color: #fefefe;
@@ -77,7 +78,7 @@ rt {
   border-bottom: solid 1px rgb(180, 180, 180);
 }
 #wb_modal .modal-body {
-  height: 510px;
+  height: 460px;
 }
 #wb_modal .modal-footer {
   border-top: solid 1px rgb(180, 180, 180);
