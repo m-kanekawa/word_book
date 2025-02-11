@@ -46,6 +46,171 @@ rt {
   text-align: left;
 }
 
-.dict_group {
-  margin-top: 8px;
+/* wb_modal */
+#wb_modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0 0 0 / 60%);
+}
+#wb_modal.active {
+  display: flex;
+}
+#wb_modal .modal-wrapper {
+  position: relative;
+  width: 80%;
+  max-width: 600px;
+  max-height: 70%;
+  height: 650px;
+  margin: auto;
+  overflow: none;
+  background-color: #fefefe;
+  border-radius: 10px;
+}
+#wb_modal .modal-header {
+  border-bottom: solid 1px rgb(180, 180, 180);
+}
+#wb_modal .modal-body {
+  height: 510px;
+}
+#wb_modal .modal-footer {
+  border-top: solid 1px rgb(180, 180, 180);
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+#wb_modal .modal-header,
+#wb_modal .modal-body,
+#wb_modal .modal-footer {
+  padding: 15px;
+}
+#wb_modal h5 {
+  font-size: 120%;
+  margin: 0;
+}
+#wb_modal label.wide {
+  display: inline-block;
+  width: 150px;
+}
+#wb_modal input[type="text"] {
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 4px;
+  width: 400px;
+}
+#wb_modal input[type="radio"] {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  border: 1px solid rgb(130, 130, 130);
+  border-radius: 50%;
+  vertical-align: -2px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+#wb_modal input[type="radio"]:checked {
+  border-color: #f89174;
+}
+#wb_modal input[type="radio"]:checked:before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #f89174;
+  content: "";
+}
+#wb_modal input[type="checkbox"] {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  border: 1px solid rgb(130, 130, 130);
+  border-radius: 2px;
+  vertical-align: -5px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+#wb_modal input[type="checkbox"]:checked {
+  border-color: #f89174;
+  background: #f89174;
+}
+#wb_modal input[type="checkbox"]:checked:before {
+  position: absolute;
+  top: 1px;
+  left: 4px;
+  transform: rotate(50deg);
+  width: 4px;
+  height: 8px;
+  border-right: 3px solid #fff;
+  border-bottom: 3px solid #fff;
+  content: "";
+}
+#wb_modal input[type="text"]:read-only {
+  background-color: rgb(240, 240, 240);
+}
+#wb_modal button {
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 30px;
+  text-decoration: none;
+  text-align: center;
+  border: 0;
+  display: inline-flex;
+  background: rgb(130, 130, 130);
+}
+#wb_modal button.submit {
+  background: #f89174;
+}
+#wb_modal .row {
+  display: block;
+  width: 100%;
+}
+#wb_modal .row input {
+  display: inline-flex;
+}
+#wb_modal .row:not(:first-child) input {
+  border-top: 0;
+}
+#wb_modal .group {
+  margin: 8px 0;
+}
+#wb_modal .pagination {
+  width: 100%;
+  padding: 0;
+  margin: 10px 0;
+  text-align: center;
+}
+#wb_modal .pagination li {
+  display: inline-flex;
+}
+#wb_modal .pagination button {
+  padding: 5px 10px;
+  border-radius: 0;
+  border: 1px solid rgb(200, 200, 200);
+  background: #fff;
+  color: #f89174;
+}
+#wb_modal .pagination li.active button {
+  background: #f89174;
+  color: #fff;
+  border-color: #f89174;
+}
+#wb_modal .pagination li:not(:first-child) button {
+  border-left: 0;
+}
+#wb_modal .pagination li:first-child button {
+  border-radius: 5px 0 0 5px;
+}
+#wb_modal .pagination li:last-child button {
+  border-radius: 0 5px 5px 0;
 }

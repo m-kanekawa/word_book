@@ -45,6 +45,9 @@ $(function () {
   $(document).on("click", "#dict_register", function () {
     send_register();
   });
+  $(document).on("click", ".close", function () {
+    $("#wb_modal").removeClass("active");
+  });
 
   // Change Type
   $("#type_v").change(function () {
@@ -95,7 +98,7 @@ function on_register() {
       clear_pagination();
       show_v();
     }
-    exampleModal.show();
+    $("#wb_modal").addClass("active");
   });
 }
 
@@ -118,35 +121,21 @@ function clear_input() {
   $("input[name=a_e]").val("");
 }
 function hide_all_input() {
-  $("input[name=v_pre_ik]").hide();
-  $("input[name=v_pre_he]").hide();
-  $("#v_h_z").hide();
-  $("input[name=v_pp]").hide();
-  $("input[name=v_past_ik]").hide();
-  $("input[name=v_past_we]").hide();
-  $("#n_de_het").hide();
-  $("input[name=n_pl]").hide();
-  $("input[name=n_tje]").hide();
-  $("input[name=a_e]").hide();
+  $(".v").hide();
+  $(".n").hide();
+  $(".a").hide();
 }
 function show_v() {
   hide_all_input();
-  $("input[name=v_pre_ik]").show();
-  $("input[name=v_pre_he]").show();
-  $("#v_h_z").show();
-  $("input[name=v_pp]").show();
-  $("input[name=v_past_ik]").show();
-  $("input[name=v_past_we]").show();
+  $(".v").show();
 }
 function show_n() {
   hide_all_input();
-  $("#n_de_het").show();
-  $("input[name=n_pl]").show();
-  $("input[name=n_tje]").show();
+  $(".n").show();
 }
 function show_a() {
   hide_all_input();
-  $("input[name=a_e]").show();
+  $(".a").show();
 }
 function show_o() {
   hide_all_input();
@@ -171,7 +160,7 @@ function clear_page_select() {
 function create_patination() {
   clear_pagination();
   var li = $(
-    "<li class='page-item active' id='page_1'><button class='page-link' onclick='change_page(1)'>" +
+    "<li class='active' id='page_1'><button class='page-link' onclick='change_page(1)'>" +
       _current_result[0]["type"] +
       "</button></li>"
   );
@@ -179,7 +168,7 @@ function create_patination() {
 
   for (i = 2; i <= _current_result.length; i++) {
     var li = $(
-      "<li class='page-item' id='page_" +
+      "<li id='page_" +
         i +
         "'><button class='page-link' onclick='change_page(" +
         i +
@@ -189,9 +178,7 @@ function create_patination() {
     );
     $("#pagination").append(li);
   }
-  var li = $(
-    "<li class='page-item' id='page_0'><button class='page-link' onclick='new_page()'>New</button></li>"
-  );
+  var li = $("<li id='page_0'><button class='page-link' onclick='new_page()'>New</button></li>");
   $("#pagination").append(li);
 }
 function change_page(n) {
@@ -317,7 +304,7 @@ function send_search(callback) {
 }
 
 function send_register() {
-  exampleModal.hide();
+  $("#wb_modal").removeClass("active");
 
   if ($("#de").prop("checked") && $("#het").prop("checked")) var de_het = "de/het";
   else if ($("#de").prop("checked")) var de_het = "de";
@@ -373,123 +360,137 @@ function init_word_book(token_id, option) {
   _option = option;
 
   var elem = `
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Register</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div class="wb_modal" id="wb_modal">
+  <div class="modal-wrapper">
+    <div class="modal-content">
+      <input type="hidden" name="id" value="">
+      <div class="modal-header">
+        <h5 class="modal_title">Register</h5>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <label class='wide'>Clicked Word : </label>
+          <input type="text" name="word" id="word" value="" readonly>
         </div>
-        <div class="modal-body">
-          <div class="row g-3 align-items-center">
-            <div class="col-auto">
-              <label for="word" class="col-form-label">Clicked Word : </label>
-            </div>
-            <div class="col-auto">
-              <input type="text" name="word" class="form-control" value="" id="word" readonly>
-            </div>
-          </div>
+        <div class="row">
+          <label class='wide'>Word : </label>
+          <input type="text" name="nl" id="nl" placeholder="word (Original form)" value="">
+        </div>
+        <nav>
+          <ul class="pagination" id="pagination"></ul>
+        </nav>
 
-          <input type="hidden" name="id" value="">
+        <div class="group">
+          <input type="radio" name="type" id="type_v" value="動">
+          <label>動</label>
 
-          <nav aria-label="Page navigation example">
-            <ul class="pagination" id="pagination">
-            </ul>
-          </nav>
+          <input type="radio" name="type" id="type_n" value="名">
+          <label>名</label>
 
-          <div class="dict_group">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="type" id="type_v" value="動">
-              <label class="form-check-label" for="type_v">動</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="type" id="type_n" value="名">
-              <label class="form-check-label" for="type_n">名</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="type" id="type_a" value="形">
-              <label class="form-check-label" for="type_a">形</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="type" id="type_o1" value="副">
-              <label class="form-check-label" for="type_o1">副</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="type" id="type_o2" value="接">
-              <label class="form-check-label" for="type_o2">接</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="type" id="type_o3" value="前">
-              <label class="form-check-label" for="type_o3">前</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="type" id="type_o4" value="代">
-              <label class="form-check-label" for="type_o4">代</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="type" id="type_o5" value="間">
-              <label class="form-check-label" for="type_o5">間</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="type" id="type_o6" value="冠">
-              <label class="form-check-label" for="type_o6">冠</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="type" id="type_o7" value="数">
-              <label class="form-check-label" for="type_o7">数</label>
-            </div>
-          </div>
-          <div class="dict_group" id='n_de_het'>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="n_de" id="de" value="de">
-              <label class="form-check-label" for="de">de</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="n_het" id="het" value="het">
-              <label class="form-check-label" for="het">het</label>
-            </div>
-          </div>
-          <div class="dict_group">
-            <input type="text" name="nl" placeholder="word (Original form)" class="form-control" value="">
-            <input type="text" name="v_pre_ik" placeholder="present (ik)" class="form-control" value="">
-            <input type="text" name="v_pre_he" placeholder="present (he)" class="form-control" value="">
-          </div>
-          <div class="dict_group" id='v_h_z'>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="v_h_z" id="h" value="H">
-              <label class="form-check-label" for="h">hebben</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="v_h_z" id="z" value="Z">
-              <label class="form-check-label" for="z">zijn</label>
-            </div>
-            <input type="text" name="v_pp" placeholder="present perfect" class="form-control" value="">
-          </div>
-          <div class="dict_group">
-            <input type="text" name="v_past_ik" placeholder="past (ik)" class="form-control" value="">
-            <input type="text" name="v_past_we" placeholder="past (we)" class="form-control" value="">
-          </div>
+          <input type="radio" name="type" id="type_a" value="形">
+          <label>形</label>
 
-          <div class="dict_group">
-            <input type="text" name="n_pl" placeholder="plural" class="form-control" value="">
-            <input type="text" name="n_tje" placeholder="Verkleinwoorden (tje)" class="form-control" value="">
+          <input type="radio" name="type" id="type_o1" value="副">
+          <label>副</label>
 
-            <input type="text" name="a_e" placeholder="e als" class="form-control" value="">
+          <input type="radio" name="type" id="type_o2" value="接">
+          <label>"接</label>
+
+          <input type="radio" name="type" id="type_o3" value="前">
+          <label>前</label>
+
+          <input type="radio" name="type" id="type_o4" value="代">
+          <label>代</label>
+
+          <input type="radio" name="type" id="type_o5" value="間">
+          <label>間</label>
+
+          <input type="radio" name="type" id="type_o6" value="冠">
+          <label>冠</label>
+
+          <input type="radio" name="type" id="type_o7" value="数">
+          <label>数</label>
+        </div>
+
+        <div class="group n">
+          <input type="checkbox" name="n_de" id="de" value="de">
+          <label>de</label>
+
+          <input type="checkbox" name="n_het" id="het" value="het">
+          <label>het</label>
+        </div>
+
+        <div class="group v">
+          <div class="row">
+            <label class='wide'>present (ik) : </label>
+            <input type="text" name="v_pre_ik" placeholder="present (ik)" value="">
           </div>
-          <div class="dict_group">
-            <input type="text" name="jp" placeholder="japanese" class="form-control" value="">
-            <input type="text" name="sample" placeholder="sample" class="form-control" value="">
+          <div class="row">
+            <label class='wide'>present (he) : </label>
+            <input type="text" name="v_pre_he" placeholder="present (he)" value="">
           </div>
         </div>
 
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" id="dict_register">Save changes</button>
+        <div class="group v">
+          <input type="radio" name="v_h_z" value="H">
+          <label>hebben</label>
+
+          <input type="radio" name="v_h_z" value="Z">
+          <label>zijn</label>
         </div>
+
+        <div class="group v">
+          <div class="row">
+            <label class='wide'>present perfect : </label>
+            <input type="text" name="v_pp" placeholder="present perfect" value="">
+          </div>
+          <div class="row">
+            <label class='wide'>past (ik) : </label>
+            <input type="text" name="v_past_ik" placeholder="past (ik)" value="">
+          </div>
+          <div class="row">
+            <label class='wide'>past (we) : </label>
+            <input type="text" name="v_past_we" placeholder="past (we)" value="">
+          </div>
+        </div>
+
+        <div class="group n">
+          <div class="row">
+            <label class='wide'>plural : </label>
+            <input type="text" name="n_pl" placeholder="plural" value="">
+          </div>
+        </div>
+
+        <div class="group a">
+          <div class="row">
+            <label class='wide'>tje : </label>
+            <input type="text" name="n_tje" placeholder="Verkleinwoorden (tje)" value="">
+          </div>
+          <div class="row">
+            <label class='wide'>e : </label>
+            <input type="text" name="a_e" placeholder="e als" value="">
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="row">
+            <label class='wide'>japanese : </label>
+            <input type="text" name="jp" placeholder="japanese" value="">
+          </div>
+          <div class="row">
+            <label class='wide'>sample : </label>
+            <input type="text" name="sample" placeholder="sample" value="">
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="close">Cancel</button>
+        <button class="submit" id="dict_register">Save changes</button>
       </div>
     </div>
   </div>
+</div>
 `;
   $("body").append(elem);
-  exampleModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
 }

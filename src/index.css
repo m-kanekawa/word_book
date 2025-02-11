@@ -1,0 +1,52 @@
+body {
+  line-height: 1.6em;
+}
+
+#index {
+  width: 60%;
+  margin: 0 auto;
+}
+
+#index h1 {
+  margin: 20px 0;
+}
+#index h3 {
+  margin-top: 15px;
+}
+
+#index textarea {
+  width: 100%;
+  border: 1px solid rgb(180, 180, 180);
+}
+
+#index table {
+  padding: 10px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#index tr {
+  border-bottom: 1px solid rgb(180, 180, 180);
+}
+#index tr:first-child {
+  border-top: 1px solid rgb(180, 180, 180);
+}
+#index td {
+  padding: 10px;
+}
+
+#index ol {
+  padding-left: 18px;
+}
+
+#index button {
+  border-radius: 5px;
+  display: block;
+  padding: 6px 10px;
+  margin-bottom: 10px;
+  text-decoration: none;
+  text-align: center;
+  background-color: rgb(130, 130, 130);
+  border: 0;
+  color: #fff;
+}

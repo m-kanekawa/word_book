@@ -66,17 +66,12 @@ if (!isset($_SESSION['word_book_session_key'])) {
 <input type="hidden" id="word_book_token" value="<?= $token ?>">
 ```
 
-2. Add wordbook.css (bootstrap is also required)
+1. Add wordbook.css
 ```html
-<link
-  href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-  rel="stylesheet"
-  integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-  crossorigin="anonymous">
 <link rel="stylesheet" href="./path_to_your_folder/wordbook.css">
 ```
 
-3. Add wordbook_nl_jp.js (jquery is also required)
+1. Add wordbook_nl_jp.js (jquery is also required)
 ```html
 <script
   src="https://code.jquery.com/jquery-3.7.1.min.js"
@@ -86,7 +81,7 @@ if (!isset($_SESSION['word_book_session_key'])) {
 <script src="./path_to_your_folder/wordbook_nl_jp.js"></script>
 ```
 
-4. Call 'init_word_book()'
+1. Call 'init_word_book()'
 ```html
 <script>
   init_word_book('word_book_token', 'tooltip');
