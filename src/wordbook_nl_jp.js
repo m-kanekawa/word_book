@@ -487,13 +487,13 @@ function init_word_book(token_id, option) {
             <label class='wide'>plural : </label>
             <input type="text" name="n_pl" placeholder="<use , for more than 1 word>" value="">
           </div>
-        </div>
-
-        <div class="group a">
           <div class="row">
             <label class='wide'>tje : </label>
             <input type="text" name="n_tje" placeholder="<use , for more than 1 word>" value="">
           </div>
+        </div>
+
+        <div class="group a">
           <div class="row">
             <label class='wide'>e : </label>
             <input type="text" name="a_e" placeholder="<use , for more than 1 word>" value="">
