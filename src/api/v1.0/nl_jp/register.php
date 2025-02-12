@@ -37,24 +37,33 @@ class Register extends API
     $this->log->debug('Register');
   }
 
+
+  private function encode($text)
+  {
+    $text = str_replace(' ', '', $text);
+    $text = str_replace('、', ',', $text);
+    return $text;
+  }
+
   function get_result()
   {
     // Read params
     $id       = $_POST['id'];
     $type     = $_POST['type'];
     $nl       = $_POST['nl'];
-    $jp       = $_POST['jp'];
+    $jp       = $this->encode($_POST['jp']);
     $sample   = $_POST['sample'];
-    $pre_ik   = $_POST['pre_ik'];
-    $pre_he   = $_POST['pre_he'];
-    $h_z      = $_POST['h_z'];
-    $pp       = $_POST['pp'];
-    $past_ik  = $_POST['past_ik'];
-    $past_we  = $_POST['past_we'];
-    $de_het   = $_POST['de_het'];
-    $e        = $_POST['e'];
-    $pl       = $_POST['pl'];
-    $tje      = $_POST['tje'];
+    $pre_ik   = $this->encode($_POST['pre_ik']);
+    $pre_he   = $this->encode($_POST['pre_he']);
+    $h_z      = $this->encode($_POST['h_z']);
+    $pp       = $this->encode($_POST['pp']);
+    $past_ik  = $this->encode($_POST['past_ik']);
+    $past_we  = $this->encode($_POST['past_we']);
+    $de_het   = $this->encode($_POST['de_het']);
+    $e        = $this->encode($_POST['e']);
+    $pl       = $this->encode($_POST['pl']);
+    $tje      = $this->encode($_POST['tje']);
+
     $this->log->debug('$id: ' . $id);
     $this->log->debug('$type: ' . $type);
     $this->log->debug('$nl: ' . $nl);

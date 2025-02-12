@@ -45,14 +45,53 @@ class Search extends API
   {
     // Read params
     $word  = strtolower($_GET['word']);
-    $this->log->debug('$word: ' . $word);
 
     // DB access
     $result = array();
     $db = new SQLite3($this->db_path);
-    $sql = 'SELECT * FROM word WHERE nl=:w OR pre_ik=:w OR pre_he=:w OR pp=:w OR past_ik=:w OR past_we=:w OR pl=:w OR e=:w OR tje=:w';
+    $sql = <<<EOM
+SELECT * 
+FROM word 
+WHERE nl=:w 
+OR pre_ik=:w 
+OR pre_ik like :w1 
+OR pre_ik like :w2 
+OR pre_ik like :w3 
+OR pre_he=:w 
+OR pre_he like :w1 
+OR pre_he like :w2 
+OR pre_he like :w3 
+OR pp=:w 
+OR pp like :w1 
+OR pp like :w2 
+OR pp like :w3 
+OR past_ik=:w 
+OR past_ik like :w1 
+OR past_ik like :w2 
+OR past_ik like :w3 
+OR past_we=:w 
+OR past_we like :w1 
+OR past_we like :w2 
+OR past_we like :w3 
+OR pl=:w 
+OR pl like :w1 
+OR pl like :w2 
+OR pl like :w3 
+OR e=:w 
+OR e like :w1 
+OR e like :w2 
+OR e like :w3 
+OR tje=:w 
+OR tje like :w1
+OR tje like :w2
+OR tje like :w3
+EOM;
+
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':w', $word);
+    $stmt->bindValue(':w1', $word . ',%');
+    $stmt->bindValue(':w2', '%,' . $word . ',%');
+    $stmt->bindValue(':w3', '%,' . $word);
     $a = $stmt->execute();
     while ($row = $a->fetchArray()) {
       $result[] = $row;

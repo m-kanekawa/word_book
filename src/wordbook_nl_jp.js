@@ -121,21 +121,21 @@ function clear_input() {
   $("input[name=a_e]").val("");
 }
 function hide_all_input() {
-  $(".v").hide();
-  $(".n").hide();
-  $(".a").hide();
+  $("#wb_modal .v").hide();
+  $("#wb_modal .n").hide();
+  $("#wb_modal .a").hide();
 }
 function show_v() {
   hide_all_input();
-  $(".v").show();
+  $("#wb_modal .v").show();
 }
 function show_n() {
   hide_all_input();
-  $(".n").show();
+  $("#wb_modal .n").show();
 }
 function show_a() {
   hide_all_input();
-  $(".a").show();
+  $("#wb_modal .a").show();
 }
 function show_o() {
   hide_all_input();
@@ -369,13 +369,22 @@ function init_word_book(token_id, option) {
       </div>
       <div class="modal-body">
         <div class="row">
-          <label class='wide'>Clicked Word : </label>
+          <label class='wide'>clicked word : </label>
           <input type="text" name="word" id="word" value="" readonly>
         </div>
         <div class="row">
-          <label class='wide'>Word : </label>
+          <label class='wide'>word : </label>
           <input type="text" name="nl" id="nl" placeholder="word (Original form)" value="">
         </div>
+        <div class="row">
+          <label class='wide'>japanese : </label>
+          <input type="text" name="jp" placeholder="japanese" value="">
+        </div>
+        <div class="row">
+          <label class='wide'>sample : </label>
+          <input type="text" name="sample" placeholder="sample" value="">
+        </div>
+
         <nav>
           <ul class="pagination" id="pagination"></ul>
         </nav>
@@ -410,6 +419,11 @@ function init_word_book(token_id, option) {
 
           <input type="radio" name="type" id="type_o7" value="数">
           <label>数</label>
+        </div>
+
+        <div class="group v n a">
+          If there're more than 1 condugated form, use <b>,</b> without space.<br>
+          example: "regels,regelen"
         </div>
 
         <div class="group n">
@@ -469,17 +483,6 @@ function init_word_book(token_id, option) {
           <div class="row">
             <label class='wide'>e : </label>
             <input type="text" name="a_e" placeholder="e als" value="">
-          </div>
-        </div>
-
-        <div class="group">
-          <div class="row">
-            <label class='wide'>japanese : </label>
-            <input type="text" name="jp" placeholder="japanese" value="">
-          </div>
-          <div class="row">
-            <label class='wide'>sample : </label>
-            <input type="text" name="sample" placeholder="sample" value="">
           </div>
         </div>
       </div>
