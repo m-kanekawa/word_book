@@ -501,16 +501,24 @@ function init_word_book(token_id, option) {
 
         <div class="group a">
           <div class="row">
-            <label class='wide'>e : </label>
-            <input type="text" name="a_e" placeholder="<use , for more than 1 word>" value="">
+            <label class='wide'>+e : </label>
+            <input type="text" name="a_e" placeholder="" value="">
           </div>
           <div class="row">
             <label class='wide'>comparative : </label>
-            <input type="text" name="a_er" placeholder="<use , for more than 1 word>" value="">
+            <input type="text" name="a_er" placeholder="" value="">
+          </div>
+          <div class="row">
+            <label class='wide'>comparative +e : </label>
+            <input type="text" name="a_ere" placeholder="" value="">
           </div>
           <div class="row">
             <label class='wide'>superlative : </label>
-            <input type="text" name="a_st" placeholder="<use , for more than 1 word>" value="">
+            <input type="text" name="a_st" placeholder="" value="">
+          </div>
+          <div class="row">
+            <label class='wide'>superlative +e : </label>
+            <input type="text" name="a_ste" placeholder="" value="">
           </div>
         </div>
       </div>
