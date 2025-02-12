@@ -95,6 +95,8 @@ rt {
   font-size: 120%;
   margin: 0;
 }
+
+/* form inside wb_modal */
 #wb_modal label.wide {
   display: inline-block;
   width: 150px;

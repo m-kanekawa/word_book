@@ -48,6 +48,12 @@ $(function () {
   $(document).on("click", ".close", function () {
     $("#wb_modal").removeClass("active");
   });
+  $(document).on("click", ".wb_modal", function (e) {
+    if (!$(e.target).closest(".modal-content").length) {
+      console.log("外側クリック");
+      $("#wb_modal").removeClass("active");
+    }
+  });
 
   // Change Type
   $("#type_v").change(function () {
