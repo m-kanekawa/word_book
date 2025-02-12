@@ -50,22 +50,21 @@ $(function () {
   });
   $(document).on("click", ".wb_modal", function (e) {
     if (!$(e.target).closest(".modal-content").length) {
-      console.log("外側クリック");
       $("#wb_modal").removeClass("active");
     }
   });
 
   // Change Type
-  $("#type_v").change(function () {
+  $(".type_v").change(function () {
     show_v();
   });
-  $("#type_n").change(function () {
+  $(".type_n").change(function () {
     show_n();
   });
-  $("#type_a").change(function () {
+  $(".type_a").change(function () {
     show_a();
   });
-  $("[id^=type_o]").change(function () {
+  $(".type_o").change(function () {
     show_o();
   });
 
@@ -95,13 +94,13 @@ function on_register() {
     clear_input();
     $("input[name=word]").val(word);
 
+    create_patination(result);
+
     if (result.length > 0) {
       _current_result = result;
-      create_patination();
       change_page(1);
     } else {
       _current_result = [];
-      clear_pagination();
       show_v();
     }
     $("#wb_modal").addClass("active");
@@ -115,8 +114,8 @@ function clear_input() {
   $("input[name=nl]").val("");
   $("input[name=jp]").val("");
   $("input[name=sample]").val("");
-  $("#de").prop("checked", false);
-  $("#het").prop("checked", false);
+  $("input[name=n_de]").prop("checked", false);
+  $("input[name=n_het]").prop("checked", false);
   $("input[name=n_pl]").val("");
   $("input[name=n_tje]").val("");
   $("input[name=v_pre_ik]").val("");
@@ -134,17 +133,22 @@ function hide_all_input() {
 function show_v() {
   hide_all_input();
   $("#wb_modal .v").show();
+  $("input[name=nl]").val("");
 }
 function show_n() {
   hide_all_input();
   $("#wb_modal .n").show();
+  $("input[name=nl]").val("");
 }
 function show_a() {
   hide_all_input();
   $("#wb_modal .a").show();
+  $("input[name=nl]").val("");
 }
 function show_o() {
   hide_all_input();
+  var word = $("input[name=word]").val();
+  $("input[name=nl]").val(word);
 }
 
 function get_select_text() {
@@ -163,29 +167,37 @@ function clear_page_select() {
       $(this).removeClass("active");
     });
 }
-function create_patination() {
+function create_patination(result) {
   clear_pagination();
-  var li = $(
-    "<li class='active' id='page_1'><button class='page-link' onclick='change_page(1)'>" +
-      _current_result[0]["type"] +
-      "</button></li>"
-  );
-  $("#pagination").append(li);
 
-  for (i = 2; i <= _current_result.length; i++) {
+  if (result.length > 0) {
     var li = $(
-      "<li id='page_" +
-        i +
-        "'><button class='page-link' onclick='change_page(" +
-        i +
-        ")'>" +
-        _current_result[i - 1]["type"] +
+      "<li class='active' id='page_1'><button class='page-link' onclick='change_page(1)'>" +
+        result[0]["type"] +
         "</button></li>"
     );
     $("#pagination").append(li);
+
+    for (i = 2; i <= result.length; i++) {
+      var li = $(
+        "<li id='page_" +
+          i +
+          "'><button class='page-link' onclick='change_page(" +
+          i +
+          ")'>" +
+          result[i - 1]["type"] +
+          "</button></li>"
+      );
+      $("#pagination").append(li);
+    }
+    var li = $("<li id='page_0'><button class='page-link' onclick='new_page()'>New</button></li>");
+    $("#pagination").append(li);
+  } else {
+    var li = $(
+      "<li class='active' id='page_0'><button class='page-link' onclick='new_page()'>New</button></li>"
+    );
+    $("#pagination").append(li);
   }
-  var li = $("<li id='page_0'><button class='page-link' onclick='new_page()'>New</button></li>");
-  $("#pagination").append(li);
 }
 function change_page(n) {
   var r = _current_result[n - 1];
@@ -203,8 +215,8 @@ function change_page(n) {
   if (r["type"] == "名") {
     var de = r["de_het"].indexOf("de") >= 0;
     var het = r["de_het"].indexOf("het") >= 0;
-    $("#de").prop("checked", de);
-    $("#het").prop("checked", het);
+    $("input[name=n_de]").prop("checked", de);
+    $("input[name=n_het]").prop("checked", het);
     $("input[name=n_pl]").val(r["pl"]);
     $("input[name=n_tje]").val(r["tje"]);
     show_n();
@@ -312,9 +324,10 @@ function send_search(callback) {
 function send_register() {
   $("#wb_modal").removeClass("active");
 
-  if ($("#de").prop("checked") && $("#het").prop("checked")) var de_het = "de/het";
-  else if ($("#de").prop("checked")) var de_het = "de";
-  else if ($("#het").prop("checked")) var de_het = "het";
+  if ($("input[name=n_de]").prop("checked") && $("input[name=n_het]").prop("checked"))
+    var de_het = "de/het";
+  else if ($("input[name=n_de]").prop("checked")) var de_het = "de";
+  else if ($("input[name=n_het]").prop("checked")) var de_het = "het";
   else var de_het = "";
 
   var type = $("input[name=type]:checked").val();
@@ -376,11 +389,11 @@ function init_word_book(token_id, option) {
       <div class="modal-body">
         <div class="row">
           <label class='wide'>clicked word : </label>
-          <input type="text" name="word" id="word" value="" readonly>
+          <input type="text" name="word" value="" readonly>
         </div>
         <div class="row">
           <label class='wide'>word : </label>
-          <input type="text" name="nl" id="nl" placeholder="word (Original form)" value="">
+          <input type="text" name="nl" placeholder="word (Original form)" value="">
         </div>
         <div class="row">
           <label class='wide'>japanese : </label>
@@ -396,58 +409,53 @@ function init_word_book(token_id, option) {
         </nav>
 
         <div class="group">
-          <input type="radio" name="type" id="type_v" value="動">
+          <input type="radio" name="type" class="type_v" value="動">
           <label>動</label>
 
-          <input type="radio" name="type" id="type_n" value="名">
+          <input type="radio" name="type" class="type_n" value="名">
           <label>名</label>
 
-          <input type="radio" name="type" id="type_a" value="形">
+          <input type="radio" name="type" class="type_a" value="形">
           <label>形</label>
 
-          <input type="radio" name="type" id="type_o1" value="副">
+          <input type="radio" name="type" class="type_o" value="副">
           <label>副</label>
 
-          <input type="radio" name="type" id="type_o2" value="接">
+          <input type="radio" name="type" class="type_o" value="接">
           <label>"接</label>
 
-          <input type="radio" name="type" id="type_o3" value="前">
+          <input type="radio" name="type" class="type_o" value="前">
           <label>前</label>
 
-          <input type="radio" name="type" id="type_o4" value="代">
+          <input type="radio" name="type" class="type_o" value="代">
           <label>代</label>
 
-          <input type="radio" name="type" id="type_o5" value="間">
+          <input type="radio" name="type" class="type_o" value="間">
           <label>間</label>
 
-          <input type="radio" name="type" id="type_o6" value="冠">
+          <input type="radio" name="type" class="type_o" value="冠">
           <label>冠</label>
 
-          <input type="radio" name="type" id="type_o7" value="数">
+          <input type="radio" name="type" class="type_o" value="数">
           <label>数</label>
         </div>
 
-        <div class="group v n a">
-          If there're more than 1 condugated form, use <b>,</b> without space.<br>
-          example: "regels,regelen"
-        </div>
-
         <div class="group n">
-          <input type="checkbox" name="n_de" id="de" value="de">
+          <input type="checkbox" name="n_de" value="de">
           <label>de</label>
 
-          <input type="checkbox" name="n_het" id="het" value="het">
+          <input type="checkbox" name="n_het" value="het">
           <label>het</label>
         </div>
 
         <div class="group v">
           <div class="row">
             <label class='wide'>present (ik) : </label>
-            <input type="text" name="v_pre_ik" placeholder="present (ik)" value="">
+            <input type="text" name="v_pre_ik" placeholder="<use , for more than 1 word>" value="">
           </div>
           <div class="row">
             <label class='wide'>present (he) : </label>
-            <input type="text" name="v_pre_he" placeholder="present (he)" value="">
+            <input type="text" name="v_pre_he" placeholder="<use , for more than 1 word>" value="">
           </div>
         </div>
 
@@ -462,33 +470,33 @@ function init_word_book(token_id, option) {
         <div class="group v">
           <div class="row">
             <label class='wide'>present perfect : </label>
-            <input type="text" name="v_pp" placeholder="present perfect" value="">
+            <input type="text" name="v_pp" placeholder="<use , for more than 1 word>" value="">
           </div>
           <div class="row">
             <label class='wide'>past (ik) : </label>
-            <input type="text" name="v_past_ik" placeholder="past (ik)" value="">
+            <input type="text" name="v_past_ik" placeholder="<use , for more than 1 word>" value="">
           </div>
           <div class="row">
             <label class='wide'>past (we) : </label>
-            <input type="text" name="v_past_we" placeholder="past (we)" value="">
+            <input type="text" name="v_past_we" placeholder="<use , for more than 1 word>" value="">
           </div>
         </div>
 
         <div class="group n">
           <div class="row">
             <label class='wide'>plural : </label>
-            <input type="text" name="n_pl" placeholder="plural" value="">
+            <input type="text" name="n_pl" placeholder="<use , for more than 1 word>" value="">
           </div>
         </div>
 
         <div class="group a">
           <div class="row">
             <label class='wide'>tje : </label>
-            <input type="text" name="n_tje" placeholder="Verkleinwoorden (tje)" value="">
+            <input type="text" name="n_tje" placeholder="<use , for more than 1 word>" value="">
           </div>
           <div class="row">
             <label class='wide'>e : </label>
-            <input type="text" name="a_e" placeholder="e als" value="">
+            <input type="text" name="a_e" placeholder="<use , for more than 1 word>" value="">
           </div>
         </div>
       </div>
