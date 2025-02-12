@@ -124,6 +124,8 @@ function clear_input() {
   $("input[name=v_past_ik]").val("");
   $("input[name=v_past_we]").val("");
   $("input[name=a_e]").val("");
+  $("input[name=a_er]").val("");
+  $("input[name=a_st]").val("");
 }
 function hide_all_input() {
   $("#wb_modal .v").hide();
@@ -206,12 +208,6 @@ function change_page(n) {
   clear_page_select();
   $("#page_" + n).addClass("active");
 
-  $("input[name=id]").val([r["id"]]);
-  $("input[name=type]").val([r["type"]]);
-  $("input[name=nl]").val(r["nl"]);
-  $("input[name=jp]").val(r["jp"]);
-  $("input[name=sample]").val(r["sample"]);
-
   if (r["type"] == "名") {
     var de = r["de_het"].indexOf("de") >= 0;
     var het = r["de_het"].indexOf("het") >= 0;
@@ -229,10 +225,18 @@ function change_page(n) {
     show_v();
   } else if (r["type"] == "形") {
     $("input[name=a_e]").val(r["e"]);
+    $("input[name=a_er]").val(r["er"]);
+    $("input[name=a_st]").val(r["st"]);
     show_a();
   } else {
     show_o();
   }
+
+  $("input[name=id]").val([r["id"]]);
+  $("input[name=type]").val([r["type"]]);
+  $("input[name=nl]").val(r["nl"]);
+  $("input[name=jp]").val(r["jp"]);
+  $("input[name=sample]").val(r["sample"]);
 }
 function new_page() {
   console.log("new_page");
@@ -349,6 +353,8 @@ function send_register() {
     pl: $("input[name=n_pl]").val(),
     tje: $("input[name=n_tje]").val(),
     e: $("input[name=a_e]").val(),
+    er: $("input[name=a_er]").val(),
+    st: $("input[name=a_st]").val(),
   };
   console.log("data", data);
 
@@ -497,6 +503,14 @@ function init_word_book(token_id, option) {
           <div class="row">
             <label class='wide'>e : </label>
             <input type="text" name="a_e" placeholder="<use , for more than 1 word>" value="">
+          </div>
+          <div class="row">
+            <label class='wide'>comparative : </label>
+            <input type="text" name="a_er" placeholder="<use , for more than 1 word>" value="">
+          </div>
+          <div class="row">
+            <label class='wide'>superlative : </label>
+            <input type="text" name="a_st" placeholder="<use , for more than 1 word>" value="">
           </div>
         </div>
       </div>

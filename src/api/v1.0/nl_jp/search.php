@@ -24,6 +24,8 @@ Out
             "past_ik" : "-",
             "past_we" : "-",
             "e"       : "-",
+            "er"      : "-",
+            "st"      : "-",
             "pl"      : "-",
             "tje"     : null,
             "jp"      : "名誉",
@@ -81,6 +83,14 @@ OR e=:w
 OR e like :w1 
 OR e like :w2 
 OR e like :w3 
+OR er=:w 
+OR er like :w1 
+OR er like :w2 
+OR er like :w3 
+OR st=:w 
+OR st like :w1 
+OR st like :w2 
+OR st like :w3 
 OR tje=:w 
 OR tje like :w1
 OR tje like :w2

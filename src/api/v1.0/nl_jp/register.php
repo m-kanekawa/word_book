@@ -19,7 +19,9 @@ In
   "de_het"  : "",
   "pl"      : "",
   "tje"     : "",
-  "e"       : ""
+  "e"       : "",
+  "er"      : "",
+  "st"      : "",
 }
 
 Out
@@ -61,6 +63,8 @@ class Register extends API
     $past_we  = $this->encode($_POST['past_we']);
     $de_het   = $this->encode($_POST['de_het']);
     $e        = $this->encode($_POST['e']);
+    $er       = $this->encode($_POST['er']);
+    $st       = $this->encode($_POST['st']);
     $pl       = $this->encode($_POST['pl']);
     $tje      = $this->encode($_POST['tje']);
 
@@ -76,6 +80,8 @@ class Register extends API
     $this->log->debug('$past_ik: ' . $past_ik);
     $this->log->debug('$past_we: ' . $past_we);
     $this->log->debug('$e: ' . $e);
+    $this->log->debug('$er: ' . $er);
+    $this->log->debug('$st: ' . $st);
     $this->log->debug('$de_het: ' . $de_het);
     $this->log->debug('$pl: ' . $pl);
     $this->log->debug('$tje: ' . $tje);
@@ -106,6 +112,8 @@ class Register extends API
         past_we = :past_we,
         de_het  = :de_het,
         e       = :e,
+        er      = :er,
+        st      = :st,
         pl      = :pl,
         tje     = :tje
       WHERE
@@ -124,6 +132,8 @@ class Register extends API
     $stmt->bindValue(':past_ik', ($type == '動') ? $past_ik : '-', SQLITE3_TEXT);
     $stmt->bindValue(':past_we', ($type == '動') ? $past_we : '-', SQLITE3_TEXT);
     $stmt->bindValue(':e', ($type == '形') ? $e : '-', SQLITE3_TEXT);
+    $stmt->bindValue(':er', ($type == '形') ? $er : '-', SQLITE3_TEXT);
+    $stmt->bindValue(':st', ($type == '形') ? $st : '-', SQLITE3_TEXT);
     $stmt->bindValue(':de_het', ($type == '名') ? $de_het : '-', SQLITE3_TEXT);
     $stmt->bindValue(':pl', ($type == '名') ? $pl : '-', SQLITE3_TEXT);
     $stmt->bindValue(':tje', ($type == '名') ? $tje : '-', SQLITE3_TEXT);
