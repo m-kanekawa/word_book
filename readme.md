@@ -37,7 +37,12 @@ golven --> golf
 So I decided to create my own Dutch-Japanese Word book online for myself.
 
 
-## How to use Demo
+## Demo
+
+https://kanekawa.dev/wb_demo/
+
+
+## Use Demo in local
 ```
 git clone git@github.com:m-kanekawa/word_book.git
 cd word_book
@@ -48,7 +53,7 @@ http://localhost:10089/
 
 
 
-## Add Word Book into your website
+## Add "Word Book" into your website
 
 1. Create token and save it into "\<input type="hidden">" and SESSION['word_book_session_key'].
 ```php
@@ -113,6 +118,10 @@ if (!isset($_SESSION['word_book_session_key'])) {
 | past_ik	| verb | past tense (ik) | 
 | past_we	| verb | past tense (we) | 
 | e	      | adjective | form for adjective end with e  | 
+| er	    | adjective | comparative  | 
+| ere     | adjective | comparative end with e  | 
+| st	    | adjective | superlative  | 
+| ste	    | adjective | superlative end with e  | 
 | de_het	| noun | de / het | 
 | pl	    | noun | plural | 
 | tje	    | noun | diminutive | 
