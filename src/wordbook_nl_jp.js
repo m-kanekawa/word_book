@@ -354,7 +354,9 @@ function send_register() {
     tje: $("input[name=n_tje]").val(),
     e: $("input[name=a_e]").val(),
     er: $("input[name=a_er]").val(),
+    ere: $("input[name=a_ere]").val(),
     st: $("input[name=a_st]").val(),
+    ste: $("input[name=a_ste]").val(),
   };
   console.log("data", data);
 
